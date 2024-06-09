@@ -1,14 +1,16 @@
 package tictactoe
 
-import scalafx.scene.layout.GridPane
+import scalafx.scene.layout.{GridPane, Pane}
 import scalafx.scene.control.{Button, Alert, ButtonType}
 import scalafx.geometry.Insets
 
-class TicTacToeGame {
+class TicTacToeGame(container: Pane) {
   private var grid = createGrid()
 
   private var currentPlayer = "X"
   private val board = Array.fill(3, 3)("")
+
+  container.children.add(grid)
 
   def getGrid: GridPane = grid
 
@@ -78,8 +80,18 @@ class TicTacToeGame {
   }
 
   private def resetGame(): Unit = {
-    grid = createGrid()
-    board.foreach(row => row.foreach(_ => ""))
+    for (i <- 0 until 3; j <- 0 until 3) {
+      board(i)(j) = ""
+    }
+    
+    val newGrid = createGrid()
+    updateGrid(newGrid)
+    grid = newGrid
     currentPlayer = "X"
+  }
+
+  private def updateGrid(newGrid: GridPane): Unit = {
+    container.children.clear()
+    container.children.add(newGrid)
   }
 }

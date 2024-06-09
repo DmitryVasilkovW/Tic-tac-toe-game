@@ -11,6 +11,5 @@ libraryDependencies ++= Seq(
 )
 
 javaOptions ++= Seq(
-  "--module-path", "/path/to/javafx-sdk-17/lib",
   "--add-modules", "javafx.controls"
 )
